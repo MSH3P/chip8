@@ -4,13 +4,15 @@
   "description": "Just another Chip8 emulator.",
   "main": "index.js",
   "scripts": {
-    "build": "esbuild src/index.ts --bundle --minify --sourcemap --outfile=public/bundle.js"
+    "lite-server": "lite-server",
+    "watch": "node scripts/watch.js src/index.ts public/bundle.js"
   },
   "author": "Matthew Sheppard",
   "license": "ISC",
   "dependencies": {
     "@types/node": "^16.9.1",
     "@types/three": "^0.131.1",
+    "chokidar": "^3.5.2",
     "esbuild": "^0.12.28",
     "node": "^16.9.1",
     "prettier": "^2.4.0",

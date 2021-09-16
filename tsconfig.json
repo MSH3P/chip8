@@ -1,16 +1,16 @@
 {
-
   "compilerOptions": {   
     "lib": ["ESNext","DOM"],                                        
     "module": "commonjs",            
     "esModuleInterop": true,                             
     "forceConsistentCasingInFileNames": true,                                                 
     "skipLibCheck": false,
-    "outDir": "/public"                               
+    "watch": true,
+    "outDir": "./build",
+    "rootDir": "./src"
   },
-  "files": [
-    "src/index.ts",
-    "src/monitor.ts",
-    "src/keyboard.ts"
-  ],
+  "compileOnSave": true,
+  "exclude": [
+    "node_modules"
+  ]
 }
