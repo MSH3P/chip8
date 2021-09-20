@@ -22,7 +22,7 @@ const appendToDom = (renderer: any) => {
 
 const addLight = (scene: any) => {
   const directionalLight = new THREE.DirectionalLight(0xffffff, 0.25);
-  directionalLight.position.add(new Vector3(2, 3, 2));
+  directionalLight.position.add(new Vector3(0, 5, 4));
   scene.add(directionalLight);
 };
 
@@ -36,11 +36,13 @@ const image = (width: number, height: number) => {
   canvas.height = height;
   const ctx = canvas.getContext('2d');
 
-  ctx.fillStyle = 'red';
+  ctx.fillStyle = 'black';
   ctx.fillRect(0, 0, width, height);
 
-  ctx.fillStyle = 'blue';
-  ctx.fillRect(200, 150, 10, 10);
+  ctx.fillStyle = '#00FF01';
+  ctx.fillRect(0, 0, 1, 1);
+  ctx.font = '30px Arial';
+  ctx.fillText('Hello World', 10, 50);
 
   return canvas.toDataURL();
 };
@@ -78,12 +80,12 @@ loader.load(
     computer = gltf.scene;
     terminal = computer.children[3];
 
-    const texture = new THREE.TextureLoader().load(image(640, 320), () => {
-      texture.needsUpdate = true;
-    });
+    const texture = new THREE.TextureLoader().load(image(640, 320));
+    texture.flipY = false;
 
-    terminal.material = new THREE.MeshBasicMaterial({
+    terminal.material = new THREE.MeshStandardMaterial({
       map: texture,
+      side: THREE.DoubleSide,
     });
 
     computer.rotation.y = 270 * (Math.PI / 180);
