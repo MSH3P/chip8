@@ -20,14 +20,41 @@ const appendToDom = (renderer: any) => {
   document.body.appendChild(renderer.domElement);
 };
 
-const addLight = (scene: any) => {
-  const directionalLight = new THREE.DirectionalLight(0xffffff, 0.25);
-  directionalLight.position.add(new Vector3(0, 5, 4));
+const addLight = (
+  scene: any,
+  color: number,
+  intensity: number,
+  position: Vector3,
+  visual: boolean
+) => {
+  const directionalLight = new THREE.DirectionalLight(color, intensity);
+  directionalLight.position.add(position);
+  directionalLight.lookAt(0, 0, 0);
   scene.add(directionalLight);
+
+  console.log(visual);
+  if (visual) {
+    const visualize = new THREE.Mesh(
+      new THREE.BoxGeometry(0.1, 0.1, 0.1),
+      new THREE.MeshBasicMaterial({ color: color })
+    );
+    visualize.position.set(position.x, position.y, position.z);
+    scene.add(visualize);
+  }
 };
 
-const cameraPosition = (camera: any) => {
-  camera.position.z = 5;
+const cameraPosition = (camera: any, zPos: number) => {
+  camera.position.z = zPos;
+};
+
+const background = (scene) => {
+  const textureLoader = new THREE.TextureLoader();
+  const texture = textureLoader.load('nebula.png', () => {
+    const rt = new THREE.WebGLCubeRenderTarget(texture.image.height);
+    rt.fromEquirectangularTexture(renderer, texture);
+    scene.background = rt.texture;
+  });
+  return texture;
 };
 
 const image = (width: number, height: number) => {
@@ -63,12 +90,16 @@ const init = essentials();
 const scene = init.scene;
 const camera = init.camera;
 const renderer = init.renderer;
+const ackground = background(scene);
 
 let controls = initControls(true, camera, renderer);
 
 appendToDom(renderer);
-cameraPosition(camera);
-addLight(scene);
+cameraPosition(camera, 2);
+// three scenes of light that match the background;
+addLight(scene, 0xff0000, 0.1, new Vector3(10, 3, -4), true);
+addLight(scene, 0x0000ff, 0.1, new Vector3(-20, -5, 0), true);
+addLight(scene, 0xffffff, 0.05, new Vector3(0, 0, 10), true);
 
 let computer;
 let terminal;
