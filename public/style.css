@@ -1,3 +1,32 @@
 body {
   margin: 0;
+  background-color: black;
+  overflow-x: hidden;
+}
+
+@font-face {
+  font-family: 'PressStart2P';
+  src: url('PressStart2P.ttf');
+}
+#header {
+  padding-left: 10px;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  color: #f0ead6;
+  font-size: 24px;
+  font-family: 'PressStart2P';
+  width: 100%;
+  background-color: black;
+  position: fixed;
+  outline: transparent;
+  box-shadow: 0 -10px 30px 0 rgba(0, 100, 255, 0.75);
+}
+#footer {
+  width: 100%;
+  color: #f0ead6;
+  font-family: 'PressStart2P';
+  background-color: black;
+}
+#window {
+  width: 100%;
 }

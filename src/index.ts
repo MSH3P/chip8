@@ -16,8 +16,8 @@ const essentials = () => {
 };
 
 const appendToDom = (renderer: any) => {
-  renderer.setSize(window.innerWidth, window.innerHeight);
-  document.body.appendChild(renderer.domElement);
+  renderer.setSize(window.innerWidth, window.innerHeight / 1.25);
+  document.getElementById('window').appendChild(renderer.domElement);
 };
 
 const addLight = (
